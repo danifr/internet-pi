@@ -8,6 +8,15 @@
     perms: false
   become: false
 
+- name: Create raspberry-monitoring directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0644
+  with_items:
+    - "{{ config_dir }}/raspberry-monitoring/init"
+    - "{{ config_dir }}/raspberry-monitoring/data"
+
 - name: Copy templated raspberry-monitoring files into place.
   ansible.builtin.template:
     src: templates/raspberry-monitoring/{{ item.src }}
