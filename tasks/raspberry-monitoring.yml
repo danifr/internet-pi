@@ -14,7 +14,6 @@
     state: directory
     mode: 0755
   with_items:
-    - "{{ config_dir }}/raspberry-monitoring"
     - "{{ config_dir }}/raspberry-monitoring/init"
     - "{{ config_dir }}/raspberry-monitoring/data"
   become: false
