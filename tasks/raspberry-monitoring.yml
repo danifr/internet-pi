@@ -12,10 +12,11 @@
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
-    mode: 0644
+    mode: 0755
   with_items:
     - "{{ config_dir }}/raspberry-monitoring/init"
     - "{{ config_dir }}/raspberry-monitoring/data"
+  become: false
 
 - name: Copy templated raspberry-monitoring files into place.
   ansible.builtin.template:
