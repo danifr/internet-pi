@@ -44,6 +44,20 @@
   notify: Restart internet-monitoring
   become: false
 
+- name: Download pihole-exporter dashboard
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/eko/pihole-exporter/master/grafana/dashboard.json
+    dest: "{{ config_dir }}/internet-monitoring/grafana/provisioning/dashboards/pihole-exporter.json"
+    mode: 0644
+  notify: Restart internet-monitoring
+  become: false
+
+- name: Replace DS_PROMETHEUS by prometheus
+  ansible.builtin.replace:
+    path: "{{ config_dir }}/internet-monitoring/grafana/provisioning/dashboards/pihole-exporter.json"
+    regexp: '(\.*)\${DS_PROMETHEUS}(\.*)'
+    replace: '\1prometheus\2'
+
 - name: Ensure internet-monitoring environment is running.
   community.docker.docker_compose:
     project_src: "{{ config_dir }}/internet-monitoring/"
