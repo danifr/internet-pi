@@ -7,10 +7,28 @@ version: "3.5"
 networks:
   front-tier:
     name: internet-monitoring-front-tier
+  back-tier:
+    name: internet-monitoring-back-tier
 {% endif %}
 
 # More info at https://github.com/pi-hole/docker-pi-hole/ and https://docs.pi-hole.net/
 services:
+  pihole-exporter:
+    image: ekofr/pihole-exporter:v0.3.0
+    container_name: pihole-exporter
+    networks:
+      - back-tier
+      - front-tier
+    ports:
+      - "9617:9617/tcp"
+    environment:
+      PIHOLE_HOSTNAME:  '{{ pihole_hostname }}'
+      PIHOLE_PORT: 80
+      PIHOLE_PASSWORD: '{{ pihole_password }}'
+      INTERVAL: 30s
+      PORT: 9617
+    restart: unless-stopped
+
   pihole:
     container_name: pihole
     image: pihole/pihole:latest
