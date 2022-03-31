@@ -1,4 +1,40 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_INFLUXDB",
+      "label": "influxdb",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "influxdb",
+      "pluginName": "InfluxDB"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "6.2.1"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "influxdb",
+      "name": "InfluxDB",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "singlestat",
+      "name": "Singlestat",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -16,13 +52,12 @@
   "editable": true,
   "gnetId": 10578,
   "graphTooltip": 1,
-  "id": 14,
-  "iteration": 1631734494292,
+  "id": null,
+  "iteration": 1563664903757,
   "links": [],
   "panels": [
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -37,40 +72,24 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "InfluxDB",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 1,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "s"
-        },
-        "overrides": []
+      "colorBackground": false,
+      "colorValue": false,
+      "colors": [
+        "rgba(245, 54, 54, 0.9)",
+        "rgba(237, 129, 40, 0.89)",
+        "rgba(50, 172, 45, 0.97)"
+      ],
+      "datasource": "${DS_INFLUXDB}",
+      "decimals": 1,
+      "editable": true,
+      "error": false,
+      "format": "s",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
       },
       "gridPos": {
         "h": 4,
@@ -78,26 +97,43 @@
         "x": 0,
         "y": 1
       },
+      "height": "150",
       "id": 61858,
       "interval": null,
       "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
         },
-        "text": {},
-        "textMode": "auto"
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "options": {},
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
       },
-      "pluginVersion": "8.0.3",
+      "tableColumn": "",
       "targets": [
         {
           "dsType": "influxdb",
@@ -142,76 +178,85 @@
           ]
         }
       ],
+      "thresholds": "",
       "title": "Uptime",
-      "type": "stat"
+      "type": "singlestat",
+      "valueFontSize": "100%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
     },
     {
       "cacheTimeout": null,
-      "datasource": "InfluxDB",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 1,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "#37872D",
-                "value": null
-              },
-              {
-                "color": "#FA6400",
-                "value": 75
-              },
-              {
-                "color": "#C4162A",
-                "value": 85
-              }
-            ]
-          },
-          "unit": "celsius"
-        },
-        "overrides": []
+      "colorBackground": true,
+      "colorPostfix": false,
+      "colorPrefix": false,
+      "colorValue": false,
+      "colors": [
+        "#37872D",
+        "#FA6400",
+        "#C4162A"
+      ],
+      "datasource": "${DS_INFLUXDB}",
+      "decimals": 1,
+      "editable": true,
+      "error": false,
+      "format": "celsius",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
       },
       "gridPos": {
         "h": 4,
-        "w": 4,
+        "w": 2,
         "x": 2,
         "y": 1
       },
+      "height": "150",
       "id": 61997,
       "interval": null,
       "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
         },
-        "text": {},
-        "textMode": "auto"
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "options": {},
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
       },
-      "pluginVersion": "8.0.3",
+      "tableColumn": "",
       "targets": [
         {
           "dsType": "influxdb",
@@ -263,49 +308,163 @@
           ]
         }
       ],
+      "thresholds": "75,85",
       "title": "CPU Temperature",
-      "type": "stat"
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
     },
     {
       "cacheTimeout": null,
-      "datasource": "InfluxDB",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 1,
-          "mappings": [
+      "colorBackground": true,
+      "colorPostfix": false,
+      "colorPrefix": false,
+      "colorValue": false,
+      "colors": [
+        "#37872D",
+        "#FA6400",
+        "#C4162A"
+      ],
+      "datasource": "${DS_INFLUXDB}",
+      "decimals": 1,
+      "editable": true,
+      "error": false,
+      "format": "celsius",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 4,
+        "y": 1
+      },
+      "height": "150",
+      "id": 61998,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "options": {},
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "dsType": "influxdb",
+          "groupBy": [
             {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
+              "params": [
+                "$interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
             }
           ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
+          "measurement": "gpu_temperature",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
               {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": null
+                "params": [
+                  "value"
+                ],
+                "type": "field"
               },
               {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 4
-              },
-              {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": 8
+                "params": [],
+                "type": "last"
               }
             ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=~",
+              "value": "/^$server$/"
+            }
+          ]
+        }
+      ],
+      "thresholds": "75,85",
+      "title": "GPU Temperature",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "rgba(50, 172, 45, 0.97)",
+        "rgba(237, 129, 40, 0.89)",
+        "rgba(245, 54, 54, 0.9)"
+      ],
+      "datasource": "${DS_INFLUXDB}",
+      "decimals": 1,
+      "editable": true,
+      "error": false,
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
       },
       "gridPos": {
         "h": 4,
@@ -313,26 +472,43 @@
         "x": 6,
         "y": 1
       },
+      "height": "150",
       "id": 61859,
       "interval": null,
       "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
         },
-        "text": {},
-        "textMode": "auto"
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "options": {},
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": true
       },
-      "pluginVersion": "8.0.3",
+      "tableColumn": "",
       "targets": [
         {
           "dsType": "influxdb",
@@ -378,49 +554,39 @@
           ]
         }
       ],
+      "thresholds": "4,8,12",
       "title": "LA medium",
-      "type": "stat"
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
     },
     {
       "cacheTimeout": null,
-      "datasource": "InfluxDB",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 0,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": null
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 1
-              },
-              {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": 5
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "rgba(50, 172, 45, 0.97)",
+        "rgba(237, 129, 40, 0.89)",
+        "rgba(245, 54, 54, 0.9)"
+      ],
+      "datasource": "${DS_INFLUXDB}",
+      "decimals": 0,
+      "editable": true,
+      "error": false,
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
       },
       "gridPos": {
         "h": 4,
@@ -428,26 +594,43 @@
         "x": 8,
         "y": 1
       },
+      "height": "150",
       "id": 61862,
       "interval": null,
       "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
         },
-        "text": {},
-        "textMode": "auto"
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "options": {},
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
       },
-      "pluginVersion": "8.0.3",
+      "tableColumn": "",
       "targets": [
         {
           "dsType": "influxdb",
@@ -493,49 +676,39 @@
           ]
         }
       ],
+      "thresholds": "1,5,10",
       "title": "Zombies",
-      "type": "stat"
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
     },
     {
       "cacheTimeout": null,
-      "datasource": "InfluxDB",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 0,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": null
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 1
-              },
-              {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": 5
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "rgba(50, 172, 45, 0.97)",
+        "rgba(237, 129, 40, 0.89)",
+        "rgba(245, 54, 54, 0.9)"
+      ],
+      "datasource": "${DS_INFLUXDB}",
+      "decimals": 0,
+      "editable": true,
+      "error": false,
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
       },
       "gridPos": {
         "h": 4,
@@ -543,26 +716,43 @@
         "x": 10,
         "y": 1
       },
+      "height": "150",
       "id": 61864,
       "interval": null,
       "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
         },
-        "text": {},
-        "textMode": "auto"
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "options": {},
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": true
       },
-      "pluginVersion": "8.0.3",
+      "tableColumn": "",
       "targets": [
         {
           "dsType": "influxdb",
@@ -607,49 +797,39 @@
           ]
         }
       ],
+      "thresholds": "1,5,10",
       "title": "Processes",
-      "type": "stat"
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
     },
     {
       "cacheTimeout": null,
-      "datasource": "InfluxDB",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 0,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": null
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 1
-              },
-              {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": 5
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "rgba(50, 172, 45, 0.97)",
+        "rgba(237, 129, 40, 0.89)",
+        "rgba(245, 54, 54, 0.9)"
+      ],
+      "datasource": "${DS_INFLUXDB}",
+      "decimals": 0,
+      "editable": true,
+      "error": false,
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
       },
       "gridPos": {
         "h": 4,
@@ -657,26 +837,43 @@
         "x": 12,
         "y": 1
       },
+      "height": "150",
       "id": 61865,
       "interval": null,
       "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
         },
-        "text": {},
-        "textMode": "auto"
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "options": {},
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": true
       },
-      "pluginVersion": "8.0.3",
+      "tableColumn": "",
       "targets": [
         {
           "dsType": "influxdb",
@@ -721,50 +918,38 @@
           ]
         }
       ],
+      "thresholds": "1,5,10",
       "title": "Threads",
-      "type": "stat"
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
     },
     {
       "cacheTimeout": null,
-      "datasource": "InfluxDB",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": null
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 70
-              },
-              {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "rgba(50, 172, 45, 0.97)",
+        "rgba(237, 129, 40, 0.89)",
+        "rgba(245, 54, 54, 0.9)"
+      ],
+      "datasource": "${DS_INFLUXDB}",
+      "editable": true,
+      "error": false,
+      "format": "percent",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": true,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
       },
       "gridPos": {
         "h": 4,
@@ -772,24 +957,44 @@
         "x": 14,
         "y": 1
       },
+      "height": "150",
       "id": 61861,
       "interval": null,
       "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "text": {}
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "options": {},
+      "pluginVersion": "6.2.1",
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
       },
-      "pluginVersion": "8.0.3",
+      "tableColumn": "",
       "targets": [
         {
           "dsType": "influxdb",
@@ -847,50 +1052,38 @@
           ]
         }
       ],
+      "thresholds": "70,80,90",
       "title": "CPU usage",
-      "type": "gauge"
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
     },
     {
       "cacheTimeout": null,
-      "datasource": "InfluxDB",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": null
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 70
-              },
-              {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "rgba(50, 172, 45, 0.97)",
+        "rgba(237, 129, 40, 0.89)",
+        "rgba(245, 54, 54, 0.9)"
+      ],
+      "datasource": "${DS_INFLUXDB}",
+      "editable": true,
+      "error": false,
+      "format": "percent",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": true,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
       },
       "gridPos": {
         "h": 4,
@@ -898,24 +1091,43 @@
         "x": 16,
         "y": 1
       },
+      "height": "150",
       "id": 61860,
       "interval": null,
       "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "text": {}
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "options": {},
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
       },
-      "pluginVersion": "8.0.3",
+      "tableColumn": "",
       "targets": [
         {
           "dsType": "influxdb",
@@ -960,51 +1172,39 @@
           ]
         }
       ],
+      "thresholds": "70,80,90",
       "title": "RAM usage",
-      "type": "gauge"
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
     },
     {
       "cacheTimeout": null,
-      "datasource": "InfluxDB",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 0,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": null
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 50
-              },
-              {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": 70
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "rgba(50, 172, 45, 0.97)",
+        "rgba(237, 129, 40, 0.89)",
+        "rgba(245, 54, 54, 0.9)"
+      ],
+      "datasource": "${DS_INFLUXDB}",
+      "decimals": 0,
+      "editable": true,
+      "error": false,
+      "format": "percent",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": true,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
       },
       "gridPos": {
         "h": 4,
@@ -1012,24 +1212,43 @@
         "x": 18,
         "y": 1
       },
+      "height": "150",
       "id": 61863,
       "interval": null,
       "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "text": {}
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "options": {},
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
       },
-      "pluginVersion": "8.0.3",
+      "tableColumn": "",
       "targets": [
         {
           "dsType": "influxdb",
@@ -1074,51 +1293,39 @@
           ]
         }
       ],
+      "thresholds": "50,70,90",
       "title": "Swap usage",
-      "type": "gauge"
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
     },
     {
       "cacheTimeout": null,
-      "datasource": "InfluxDB",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 0,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": null
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 70
-              },
-              {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "rgba(50, 172, 45, 0.97)",
+        "rgba(237, 129, 40, 0.89)",
+        "rgba(245, 54, 54, 0.9)"
+      ],
+      "datasource": "${DS_INFLUXDB}",
+      "decimals": 0,
+      "editable": true,
+      "error": false,
+      "format": "percent",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": true,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
       },
       "gridPos": {
         "h": 4,
@@ -1126,24 +1333,43 @@
         "x": 20,
         "y": 1
       },
+      "height": "150",
       "id": 61866,
       "interval": null,
       "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "text": {}
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "options": {},
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
       },
-      "pluginVersion": "8.0.3",
+      "tableColumn": "",
       "targets": [
         {
           "dsType": "influxdb",
@@ -1194,50 +1420,39 @@
           ]
         }
       ],
+      "thresholds": "70,80,90",
       "title": "RootFS used",
-      "type": "gauge"
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
     },
     {
       "cacheTimeout": null,
-      "datasource": "InfluxDB",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "rgb(31, 120, 193)",
-            "mode": "fixed"
-          },
-          "decimals": 2,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": null
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 30
-              },
-              {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": 40
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
+      "colorBackground": false,
+      "colorValue": false,
+      "colors": [
+        "rgba(245, 54, 54, 0.9)",
+        "rgba(237, 129, 40, 0.89)",
+        "rgba(50, 172, 45, 0.97)"
+      ],
+      "datasource": "${DS_INFLUXDB}",
+      "decimals": 2,
+      "editable": true,
+      "error": false,
+      "format": "percent",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
       },
       "gridPos": {
         "h": 4,
@@ -1245,26 +1460,43 @@
         "x": 22,
         "y": 1
       },
+      "height": "150",
       "id": 61867,
       "interval": null,
       "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
         },
-        "text": {},
-        "textMode": "auto"
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "options": {},
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": true
       },
-      "pluginVersion": "8.0.3",
+      "tableColumn": "",
       "targets": [
         {
           "dsType": "influxdb",
@@ -1317,12 +1549,21 @@
           ]
         }
       ],
+      "thresholds": "30,40,50",
       "title": "IOWait",
-      "type": "stat"
+      "type": "singlestat",
+      "valueFontSize": "100%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1340,11 +1581,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
       "editable": true,
       "error": false,
       "fill": 1,
-      "fillGradient": 0,
       "grid": {},
       "gridPos": {
         "h": 8,
@@ -1353,7 +1593,6 @@
         "y": 6
       },
       "height": "300",
-      "hiddenSeries": false,
       "id": 28239,
       "interval": "$inter",
       "legend": {
@@ -1375,11 +1614,8 @@
       "linewidth": 2,
       "links": [],
       "nullPointMode": "connected",
-      "options": {
-        "alertThreshold": true
-      },
+      "options": {},
       "percentage": false,
-      "pluginVersion": "8.0.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1479,11 +1715,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
       "editable": true,
       "error": false,
       "fill": 1,
-      "fillGradient": 0,
       "grid": {},
       "gridPos": {
         "h": 8,
@@ -1492,7 +1727,6 @@
         "y": 6
       },
       "height": "400",
-      "hiddenSeries": false,
       "id": 12054,
       "interval": "$inter",
       "legend": {
@@ -1511,11 +1745,8 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "connected",
-      "options": {
-        "alertThreshold": true
-      },
+      "options": {},
       "percentage": false,
-      "pluginVersion": "8.0.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1620,11 +1851,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
       "editable": true,
       "error": false,
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 9,
         "w": 12,
@@ -1632,7 +1862,6 @@
         "y": 14
       },
       "height": "350",
-      "hiddenSeries": false,
       "id": 61852,
       "legend": {
         "alignAsTable": true,
@@ -1651,11 +1880,8 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "connected",
-      "options": {
-        "alertThreshold": true
-      },
+      "options": {},
       "percentage": false,
-      "pluginVersion": "8.0.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1757,11 +1983,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
       "editable": true,
       "error": false,
       "fill": 0,
-      "fillGradient": 0,
       "grid": {},
       "gridPos": {
         "h": 9,
@@ -1770,7 +1995,6 @@
         "y": 14
       },
       "height": "350",
-      "hiddenSeries": false,
       "id": 54694,
       "interval": "$inter",
       "legend": {
@@ -1787,11 +2011,8 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "connected",
-      "options": {
-        "alertThreshold": true
-      },
+      "options": {},
       "percentage": false,
-      "pluginVersion": "8.0.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1888,11 +2109,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
       "editable": true,
       "error": false,
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 10,
         "w": 12,
@@ -1900,7 +2120,6 @@
         "y": 23
       },
       "height": "",
-      "hiddenSeries": false,
       "id": 61855,
       "legend": {
         "alignAsTable": true,
@@ -1917,11 +2136,8 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "connected",
-      "options": {
-        "alertThreshold": true
-      },
+      "options": {},
       "percentage": false,
-      "pluginVersion": "8.0.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2023,11 +2239,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
       "editable": true,
       "error": false,
       "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 10,
         "w": 12,
@@ -2035,7 +2250,6 @@
         "y": 23
       },
       "height": "",
-      "hiddenSeries": false,
       "id": 61960,
       "legend": {
         "alignAsTable": true,
@@ -2052,11 +2266,8 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "connected",
-      "options": {
-        "alertThreshold": true
-      },
+      "options": {},
       "percentage": false,
-      "pluginVersion": "8.0.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2155,7 +2366,6 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2173,11 +2383,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
       "editable": true,
       "error": false,
       "fill": 1,
-      "fillGradient": 0,
       "grid": {},
       "gridPos": {
         "h": 7,
@@ -2185,7 +2394,6 @@
         "x": 0,
         "y": 34
       },
-      "hiddenSeries": false,
       "id": 42026,
       "interval": "$inter",
       "legend": {
@@ -2203,11 +2411,8 @@
       "linewidth": 2,
       "links": [],
       "nullPointMode": "connected",
-      "options": {
-        "alertThreshold": true
-      },
+      "options": {},
       "percentage": false,
-      "pluginVersion": "8.0.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2375,11 +2580,10 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
       "editable": true,
       "error": false,
       "fill": 1,
-      "fillGradient": 0,
       "grid": {},
       "gridPos": {
         "h": 7,
@@ -2387,7 +2591,6 @@
         "x": 12,
         "y": 34
       },
-      "hiddenSeries": false,
       "id": 28572,
       "interval": "$inter",
       "legend": {
@@ -2405,11 +2608,8 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "connected",
-      "options": {
-        "alertThreshold": true
-      },
+      "options": {},
       "percentage": false,
-      "pluginVersion": "8.0.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2570,12 +2770,11 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
       "decimals": 1,
       "editable": true,
       "error": false,
       "fill": 1,
-      "fillGradient": 0,
       "grid": {},
       "gridPos": {
         "h": 7,
@@ -2583,7 +2782,6 @@
         "x": 0,
         "y": 41
       },
-      "hiddenSeries": false,
       "id": 58901,
       "interval": "$inter",
       "legend": {
@@ -2601,11 +2799,8 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "connected",
-      "options": {
-        "alertThreshold": true
-      },
+      "options": {},
       "percentage": false,
-      "pluginVersion": "8.0.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2759,11 +2954,10 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
       "editable": true,
       "error": false,
       "fill": 1,
-      "fillGradient": 0,
       "grid": {},
       "gridPos": {
         "h": 7,
@@ -2771,7 +2965,6 @@
         "x": 12,
         "y": 41
       },
-      "hiddenSeries": false,
       "id": 50643,
       "interval": "$inter",
       "legend": {
@@ -2789,11 +2982,8 @@
       "linewidth": 2,
       "links": [],
       "nullPointMode": "connected",
-      "options": {
-        "alertThreshold": true
-      },
+      "options": {},
       "percentage": false,
-      "pluginVersion": "8.0.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2944,7 +3134,6 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2962,11 +3151,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
       "editable": true,
       "error": false,
       "fill": 1,
-      "fillGradient": 0,
       "grid": {},
       "gridPos": {
         "h": 7,
@@ -2974,7 +3162,6 @@
         "x": 0,
         "y": 49
       },
-      "hiddenSeries": false,
       "id": 26024,
       "interval": "$inter",
       "legend": {
@@ -2993,11 +3180,8 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "connected",
-      "options": {
-        "alertThreshold": true
-      },
+      "options": {},
       "percentage": false,
-      "pluginVersion": "8.0.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3099,11 +3283,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
       "editable": true,
       "error": false,
       "fill": 1,
-      "fillGradient": 0,
       "grid": {},
       "gridPos": {
         "h": 7,
@@ -3111,7 +3294,6 @@
         "x": 12,
         "y": 49
       },
-      "hiddenSeries": false,
       "id": 61850,
       "interval": "$inter",
       "legend": {
@@ -3130,11 +3312,8 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "connected",
-      "options": {
-        "alertThreshold": true
-      },
+      "options": {},
       "percentage": false,
-      "pluginVersion": "8.0.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3234,7 +3413,6 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -3252,11 +3430,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
       "editable": true,
       "error": false,
       "fill": 1,
-      "fillGradient": 0,
       "grid": {},
       "gridPos": {
         "h": 7,
@@ -3264,7 +3441,6 @@
         "x": 0,
         "y": 57
       },
-      "hiddenSeries": false,
       "id": 13782,
       "interval": "$inter",
       "legend": {
@@ -3286,11 +3462,8 @@
       "links": [],
       "maxPerRow": 3,
       "nullPointMode": "connected",
-      "options": {
-        "alertThreshold": true
-      },
+      "options": {},
       "percentage": false,
-      "pluginVersion": "8.0.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3449,11 +3622,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
       "editable": true,
       "error": false,
       "fill": 1,
-      "fillGradient": 0,
       "grid": {},
       "gridPos": {
         "h": 7,
@@ -3461,7 +3633,6 @@
         "x": 8,
         "y": 57
       },
-      "hiddenSeries": false,
       "id": 60200,
       "interval": "$inter",
       "legend": {
@@ -3483,11 +3654,8 @@
       "links": [],
       "maxPerRow": 3,
       "nullPointMode": "connected",
-      "options": {
-        "alertThreshold": true
-      },
+      "options": {},
       "percentage": false,
-      "pluginVersion": "8.0.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3646,11 +3814,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
       "editable": true,
       "error": false,
       "fill": 1,
-      "fillGradient": 0,
       "grid": {},
       "gridPos": {
         "h": 7,
@@ -3658,7 +3825,6 @@
         "x": 16,
         "y": 57
       },
-      "hiddenSeries": false,
       "id": 56720,
       "interval": "$inter",
       "legend": {
@@ -3680,11 +3846,8 @@
       "links": [],
       "maxPerRow": 3,
       "nullPointMode": "connected",
-      "options": {
-        "alertThreshold": true
-      },
+      "options": {},
       "percentage": false,
-      "pluginVersion": "8.0.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3840,7 +4003,6 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -3858,11 +4020,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
       "editable": true,
       "error": false,
       "fill": 1,
-      "fillGradient": 0,
       "grid": {},
       "gridPos": {
         "h": 7,
@@ -3870,7 +4031,6 @@
         "x": 0,
         "y": 65
       },
-      "hiddenSeries": false,
       "id": 52240,
       "interval": "$inter",
       "legend": {
@@ -3890,11 +4050,8 @@
       "links": [],
       "maxPerRow": 2,
       "nullPointMode": "connected",
-      "options": {
-        "alertThreshold": true
-      },
+      "options": {},
       "percentage": false,
-      "pluginVersion": "8.0.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -4007,11 +4164,10 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "${DS_INFLUXDB}",
       "editable": true,
       "error": false,
       "fill": 1,
-      "fillGradient": 0,
       "grid": {},
       "gridPos": {
         "h": 7,
@@ -4019,7 +4175,6 @@
         "x": 12,
         "y": 65
       },
-      "hiddenSeries": false,
       "id": 33458,
       "interval": "$inter",
       "legend": {
@@ -4039,11 +4194,8 @@
       "links": [],
       "maxPerRow": 2,
       "nullPointMode": "connected",
-      "options": {
-        "alertThreshold": true
-      },
+      "options": {},
       "percentage": false,
-      "pluginVersion": "8.0.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -4208,30 +4360,28 @@
     }
   ],
   "refresh": "1m",
-  "schemaVersion": 30,
+  "schemaVersion": 18,
   "style": "dark",
   "tags": [
     "influxdb",
     "telegraf",
-    "raspberrypi"
+    "raspberrypi",
+    "pi4"
   ],
   "templating": {
     "list": [
       {
         "allFormat": "glob",
         "current": {
-          "selected": false,
-          "text": "InfluxDB",
-          "value": "InfluxDB"
+          "text": "default",
+          "value": "default"
         },
         "datasource": "InfluxDB telegraf",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "",
         "multi": false,
-        "name": "datasource",
+        "name": "DS_INFLUXDB",
         "options": [],
         "query": "influxdb",
         "refresh": 1,
@@ -4244,13 +4394,10 @@
         "auto_count": 100,
         "auto_min": "30s",
         "current": {
-          "selected": false,
           "text": "30s",
           "value": "30s"
         },
         "datasource": null,
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Sampling",
@@ -4304,22 +4451,15 @@
           }
         ],
         "query": "10s,30s,1m,2m,5m,10m,30m,1h",
-        "queryValue": "",
         "refresh": 2,
         "skipUrlSync": false,
         "type": "interval"
       },
       {
         "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "archberry2",
-          "value": "archberry2"
-        },
-        "datasource": "InfluxDB",
+        "current": {},
+        "datasource": "${DS_INFLUXDB}",
         "definition": "",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Server",
@@ -4332,21 +4472,16 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": null,
+        "tags": [],
         "tagsQuery": null,
         "type": "query",
         "useTags": false
       },
       {
         "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": "$datasource",
+        "current": {},
+        "datasource": "${DS_INFLUXDB}",
         "definition": "",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Mountpoint",
@@ -4359,25 +4494,16 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": null,
+        "tags": [],
         "tagsQuery": null,
         "type": "query",
         "useTags": false
       },
       {
         "allValue": null,
-        "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
-        },
-        "datasource": "$datasource",
+        "current": {},
+        "datasource": "${DS_INFLUXDB}",
         "definition": "",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "CPU",
@@ -4390,21 +4516,16 @@
         "skipUrlSync": false,
         "sort": 1,
         "tagValuesQuery": null,
+        "tags": [],
         "tagsQuery": null,
         "type": "query",
         "useTags": false
       },
       {
         "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": "$datasource",
+        "current": {},
+        "datasource": "${DS_INFLUXDB}",
         "definition": "",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Disk",
@@ -4417,21 +4538,16 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": null,
+        "tags": [],
         "tagsQuery": null,
         "type": "query",
         "useTags": false
       },
       {
         "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": "$datasource",
+        "current": {},
+        "datasource": "${DS_INFLUXDB}",
         "definition": "",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Network interface",
@@ -4444,6 +4560,7 @@
         "skipUrlSync": false,
         "sort": 1,
         "tagValuesQuery": null,
+        "tags": [],
         "tagsQuery": null,
         "type": "query",
         "useTags": false
@@ -4468,20 +4585,19 @@
       "1d"
     ],
     "time_options": [
+      "5m",
       "15m",
       "1h",
       "6h",
       "12h",
       "24h",
       "2d",
-      "5d",
       "7d",
-      "15d",
       "30d"
     ]
   },
   "timezone": "browser",
   "title": "Raspberry Pi Monitoring",
-  "uid": "AesQP0Zgk",
-  "version": 3
+  "uid": "sF7d-FHZz",
+  "version": 4
 }
