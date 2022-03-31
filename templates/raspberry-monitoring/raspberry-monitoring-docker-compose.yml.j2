@@ -24,9 +24,13 @@ services:
     depends_on:
       - influxdb
     volumes:
+      - /opt/vc:/opt/vc:ro
       - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
       - /:/hostfs:ro
+    devices:
+      - "/dev/vchiq:/dev/vchiq"
     environment:
+      - LD_LIBRARY_PATH=/opt/vc/lib
       - HOST_ETC=/hostfs/etc
       - HOST_PROC=/hostfs/proc
       - HOST_SYS=/hostfs/sys

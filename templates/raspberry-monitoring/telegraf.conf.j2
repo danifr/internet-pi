@@ -48,3 +48,9 @@
   name_override = "cpu_temperature"
   data_format = "value"
   data_type = "integer"
+
+[[inputs.exec]]
+  commands = ["/opt/vc/bin/vcgencmd measure_temp"]
+  name_override = "gpu_temperature"
+  data_format = "grok"
+  grok_patterns = ["%{NUMBER:value:float}"]
