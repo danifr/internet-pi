@@ -4365,8 +4365,7 @@
   "tags": [
     "influxdb",
     "telegraf",
-    "raspberrypi",
-    "pi4"
+    "raspberrypi"
   ],
   "templating": {
     "list": [
@@ -4375,11 +4374,11 @@
         "current": {
           "text": "default",
           "value": "default"
-        },
-        "datasource": "InfluxDB telegraf",
+      },
+        "datasource": "InfluxDB",
         "hide": 0,
         "includeAll": false,
-        "label": "",
+        "label": "datasource",
         "multi": false,
         "name": "DS_INFLUXDB",
         "options": [],
@@ -4470,7 +4469,8 @@
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
-        "sort": 0,
+        "sort": 2,
+        "sortDesc": true,
         "tagValuesQuery": null,
         "tags": [],
         "tagsQuery": null,
