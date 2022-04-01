@@ -4490,7 +4490,7 @@
         "options": [],
         "query": "SHOW TAG VALUES FROM \"disk\" WITH KEY = \"path\" WHERE host =~ /$server/",
         "refresh": 1,
-        "regex": "",
+        "regex": "^(?!/run|/etc/|/opt).*$",
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": null,
