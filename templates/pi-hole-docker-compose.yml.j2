@@ -35,6 +35,7 @@ services:
       FTLCONF_webserver_api_password: '{{ pihole_password }}'
       FTLCONF_dns_reply_host_IPv4: '{{ ansible_facts['default_ipv4']['address'] }}'
       FTLCONF_dns_listeningMode: 'SINGLE'
+      FTLCONF_webserver_port: '80'
       FTLCONF_dns_interface: '{{ ansible_facts['default_ipv4']['interface'] }}'
 {% if domain_name_enable and domain_name and domain_pihole %}
       VIRTUAL_HOST: {{ domain_pihole }}.{{ domain_name }}
