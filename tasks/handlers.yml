@@ -20,6 +20,13 @@
     state: restarted
   become: false
 
+- name: Restart wireguard
+  community.docker.docker_compose_v2:
+    project_src: "{{ config_dir }}/wireguard/"
+    build: never
+    state: restarted
+  become: false
+
 - name: Restart shelly-plug-prometheus
   community.docker.docker_compose_v2:
     project_src: "{{ config_dir }}/shelly-plug-prometheus/"
