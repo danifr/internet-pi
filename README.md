@@ -1,3 +1,6 @@
+> This repository is a fork from [geerlingguy/internet-pi](https://github.com/geerlingguy/internet-pi), I added a couple extra new features on top of the existing ones. If you are interested in knowing more, please look for the lines starting with "✨ danifr's fork".
+
+
 # Internet Pi
 
 [![CI](https://github.com/geerlingguy/internet-pi/workflows/CI/badge.svg?event=push)](https://github.com/geerlingguy/internet-pi/actions?query=workflow%3ACI)
@@ -17,6 +20,37 @@ So that's what this is.
 **Pi-hole**: Installs the Pi-hole Docker configuration so you can use Pi-hole for network-wide ad-blocking and local DNS. Make sure to update your network router config to direct all DNS queries through your Raspberry Pi if you want to use Pi-hole effectively!
 
 ![Pi-hole on the Internet Pi](images/pi-hole.png)
+
+(✨ danifr's fork) **Installs WireGuard VPN**
+
+**WireGuard**: Installs [wg-easy](https://github.com/wg-easy/wg-easy), the easiest way to run WireGuard VPN + Web-based Admin UI.
+
+Just add this settion to your `config.yml` file:
+
+```
+domain_wireguard: 'wireguard' # to access wireguard webUI via: http://wireguard.home.local
+
+wireguard_enable: true
+wireguard_host: 'home.dyndns.com'
+wireguard_default_address: 10.8.100.x
+wireguard_password: "Supersecret"
+```
+
+(✨ danifr's fork) **Rasberry Pi monitoring**: Installs Influxdb, Telegraf, and a [Grafana dashboard](https://grafana.com/grafana/dashboards/10578) to monitor your Raspberry stats.
+
+Just add these lines to your `config.yml` to start using it:
+
+```
+raspberry_monitoring_enable: true
+telegraf_retention_policy: '90d'
+telegraf_password: 'admin'
+```
+
+![Raspberry Pi Monitoring Dashboard in Grafana](/images/raspberrypi-monitoring.png)
+
+(✨ danifr's fork) **Pi-Hole monitoring**: Installs [pihole-exporter](https://github.com/eko/pihole-exporter) (a Prometheus exporter for Pi-Hole) and a [Grafana dashboard](https://grafana.com/grafana/dashboards/10176) to visualize all metrics produced by Pi-hole.
+
+![Pi-hole Monitoring Dashboard in Grafana](/images/pi-hole-monitoring.png)
 
 Other features:
 
@@ -96,7 +130,7 @@ prometheus_node_exporter_targets:
 To upgrade Pi-hole to the latest version, run the following commands:
 
 ```bash
-cd ~/pi-hole # 
+cd ~/pi-hole #
 docker compose pull             # pulls the latest images
 docker compose up -d --no-deps  # restarts containers with newer images
 docker system prune --all       # deletes unused images
@@ -104,7 +138,7 @@ docker system prune --all       # deletes unused images
 
 ### Configurations and internet-monitoring images
 
-Upgrades for the other configurations are similar (go into the directory, and run the same `docker compose` commands. Make sure to `cd` into the `config_dir` that you use in your `config.yml` file. 
+Upgrades for the other configurations are similar (go into the directory, and run the same `docker compose` commands. Make sure to `cd` into the `config_dir` that you use in your `config.yml` file.
 
 Alternatively, you may update the initial `config.yml` in the the repo folder and re-run the main playbook: `ansible-playbook main.yml`. At some point in the future, a dedicated upgrade playbook may be added, but for now, upgrades may be performed manually as shown above.
 
