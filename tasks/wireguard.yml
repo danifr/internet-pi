@@ -1,0 +1,21 @@
+---
+- name: Create wireguard folder.
+  ansible.builtin.file:
+    path: "{{ config_dir }}/wireguard"
+    state: directory
+    mode: 0755
+  become: false
+  register: wireguard_dir
+
+- name: Copy wireguard docker-compose template.
+  ansible.builtin.template:
+    src: templates/wireguard-docker-compose.yml.j2
+    dest: "{{ wireguard_dir.path }}/docker-compose.yml"
+    mode: '0640'
+  notify: Restart wireguard
+
+- name: Ensure wireguard is running.
+  community.docker.docker_compose_v2:
+    project_src: "{{ wireguard_dir.path }}/"
+    build: never
+  become: false

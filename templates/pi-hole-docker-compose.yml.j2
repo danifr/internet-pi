@@ -63,6 +63,9 @@ services:
 {% if domain_name_enable and domain_name and domain_pihole %}
       - "{{ domain_pihole }}.{{ domain_name }}:{{ ansible_facts['default_ipv4']['address'] }}"
 {% endif %}
+{% if domain_name_enable and domain_name and domain_wireguard %}
+      - "{{ domain_wireguard }}.{{ domain_name }}:{{ ansible_facts['default_ipv4']['address'] }}"
+{% endif %}
 {% if domain_name_enable and domain_name and domain_grafana %}
       - "{{ domain_grafana }}.{{ domain_name }}:{{ ansible_facts['default_ipv4']['address'] }}"
 {% endif %}

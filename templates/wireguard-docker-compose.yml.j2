@@ -1,0 +1,39 @@
+# {{ ansible_managed }}
+---
+{% if domain_name_enable and domain_name and domain_wireguard %}
+{# Make sure wireguard and nginx-proxy are in the same network #}
+networks:
+  front-tier:
+    name: internet-monitoring-front-tier
+    external: true
+{% endif %}
+
+services:
+  wireguard:
+    container_name: "wg-easy"
+    image: "ghcr.io/wg-easy/wg-easy:13"
+    networks:
+      - front-tier
+    sysctls:
+      net.ipv4.conf.all.src_valid_mark: 1
+      net.ipv4.ip_forward: 1
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    expose:
+      - 38081
+    environment:
+      WG_HOST: "{{ wireguard_host }}"
+      WG_DEFAULT_DNS: "{{ pihole_ipv4 }}"
+      WG_DEFAULT_ADDRESS: "{{ wireguard_default_address }}"
+      PASSWORD: "{{ wireguard_password }}"
+      PORT: 38081
+{% if domain_name_enable and domain_name and domain_wireguard %}
+      VIRTUAL_HOST: {{ domain_wireguard }}.{{ domain_name }}
+      VIRTUAL_PORT: 38081
+{% endif %}
+    ports:
+      - "51820:51820/udp"
+    volumes:
+      - ./config/:/etc/wireguard
+    restart: unless-stopped
