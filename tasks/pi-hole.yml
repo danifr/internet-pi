@@ -40,3 +40,12 @@
   ansible.builtin.command: resolvconf -u
   changed_when: false
   when: resolvconf_file is changed
+
+- name: Get infos on container
+  docker_container_info:
+    name: pihole
+  register: result
+
+- name: Set pihole ip address
+  ansible.builtin.set_fact:
+    pihole_ipv4: "{{ (result.container.NetworkSettings.Networks | dict2items)[0].value.IPAddress }}"
