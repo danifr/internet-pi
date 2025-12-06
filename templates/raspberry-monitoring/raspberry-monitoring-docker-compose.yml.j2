@@ -7,7 +7,7 @@ networks:
 
 services:
   influxdb:
-    image: influxdb:1.8.10 # latest influxdb compatible with 32 bits processors
+    image: influxdb:{{ docker_image_versions.influxdb }} # latest influxdb compatible with 32 bits processors
     restart: always
     networks:
       - back-tier
@@ -16,7 +16,7 @@ services:
       - ./influxdb.conf:/etc/influxdb/influxdb.conf:ro
       - ./init:/docker-entrypoint-initdb.d
   telegraf:
-    image: telegraf:1.34.2
+    image: telegraf:{{ docker_image_versions.telegraf }}
     restart: always
     networks:
       - back-tier

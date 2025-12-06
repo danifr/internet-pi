@@ -17,7 +17,7 @@ networks:
 services:
   pihole:
     container_name: pihole
-    image: pihole/pihole:latest
+    image: pihole/pihole:{{ docker_image_versions.pihole }}
     restart: unless-stopped
     hostname: '{{ pihole_hostname }}'
     ports:
@@ -77,7 +77,7 @@ services:
 
   pihole-exporter:
     container_name: pihole-exporter
-    image: ekofr/pihole-exporter:latest
+    image: ekofr/pihole-exporter:{{ docker_image_versions.pihole_exporter }}
     restart: unless-stopped
     hostname: 'pihole-exporter'
     networks:

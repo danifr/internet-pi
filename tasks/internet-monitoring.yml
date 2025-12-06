@@ -46,7 +46,8 @@
 
 - name: Download pihole-exporter dashboard
   ansible.builtin.get_url:
-    url: https://raw.githubusercontent.com/eko/pihole-exporter/refs/tags/v1.0.1/grafana/dashboard.json
+    # yamllint disable-line rule:line-length
+    url: https://raw.githubusercontent.com/eko/pihole-exporter/refs/tags/{{ docker_image_versions.pihole_exporter }}/grafana/dashboard.json
     dest: "{{ config_dir }}/internet-monitoring/grafana/provisioning/dashboards/pihole-exporter.json"
     mode: 0644
   notify: Restart internet-monitoring

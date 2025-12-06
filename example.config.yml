@@ -2,6 +2,22 @@
 # Location where configuration files will be stored.
 config_dir: '~'
 
+# Docker image versions
+docker_image_versions:
+  nginx_proxy: '1.10-alpine'
+  prometheus: 'v3.11.2'
+  grafana: '13.0.1'
+  blackbox_exporter: 'v0.28.0'
+  speedtest_exporter: 'v3.5.4'
+  node_exporter: 'v1.10.2'
+  pihole: '2026.04.1'
+  pihole_exporter: 'v1.2.0'
+  wireguard: '15'
+  influxdb: '1.8.10'
+  telegraf: '1.38.3'
+  php_apache: '8.4.20-apache'
+  starlink_exporter: 'v0.0.5'
+
 # Domain names configuration (related services need to be enabled).
 domain_name_enable: false
 domain_name: 'home.local'
