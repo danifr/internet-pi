@@ -11,7 +11,7 @@ networks:
 services:
   wireguard:
     container_name: "wg-easy"
-    image: "ghcr.io/wg-easy/wg-easy:13"
+    image: "ghcr.io/wg-easy/wg-easy:{{ docker_image_versions.wireguard }}"
     networks:
       - front-tier
     sysctls:
