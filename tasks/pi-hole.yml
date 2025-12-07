@@ -15,8 +15,9 @@
   become: false
   notify: Restart pi-hole
 
-# TODO: The first time this playbook is run, the `pi` user may not be added
-# to the `docker` group, so this task may fail.
+- name: Reset connection to pick up docker group membership.
+  meta: reset_connection
+
 - name: Ensure Pi-hole is running.
   community.docker.docker_compose_v2:
     project_src: "{{ pi_hole_dir.path }}/"
@@ -42,9 +43,9 @@
   when: resolvconf_file is changed
 
 - name: Get infos on container
-  docker_container_info:
+  community.docker.docker_container_info:
     name: pihole
   register: result
 
-- set_fact:
+- ansible.builtin.set_fact:
     pihole_ipv4: "{{ (result.container.NetworkSettings.Networks | dict2items)[0].value.IPAddress }}"
