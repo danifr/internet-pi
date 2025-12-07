@@ -46,7 +46,7 @@ telegraf_password: 'admin'
 monitoring_enable: true
 monitoring_grafana_admin_password: "admin"
 monitoring_speedtest_interval: 60m
-monitoring_ping_interval: 5s
+monitoring_ping_interval: 30s
 monitoring_ping_hosts:  # [URL];[HUMAN_READABLE_NAME]
   - http://www.google.com/;google.com
   - https://github.com/;github.com
