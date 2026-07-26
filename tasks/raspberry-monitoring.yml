@@ -1,37 +1,24 @@
 ---
-- name: Synchronize raspberry-monitoring directory.
-  ansible.posix.synchronize:
-    src: raspberry-monitoring
-    dest: "{{ config_dir }}/"
-    delete: false
-    recursive: true
-    perms: false
-  become: false
-
-- name: Create raspberry-monitoring directories
+- name: Create textfile collector directory
   ansible.builtin.file:
-    path: "{{ item }}"
+    path: /var/lib/node_exporter/textfile_collector
     state: directory
     mode: 0755
-  with_items:
-    - "{{ config_dir }}/raspberry-monitoring/init"
-    - "{{ config_dir }}/raspberry-monitoring/data"
-  become: false
+  become: true
 
-- name: Copy templated raspberry-monitoring files into place.
+- name: Deploy gpu-temp script
   ansible.builtin.template:
-    src: templates/raspberry-monitoring/{{ item.src }}
-    dest: "{{ config_dir }}/raspberry-monitoring/{{ item.dest }}"
-    mode: 0644
-  loop:
-    - src: raspberry-monitoring-docker-compose.yml.j2
-      dest: docker-compose.yml
-    - src: create-telegraf.iql.j2
-      dest: init/create-telegraf.iql
-    - src: telegraf.conf.j2
-      dest: telegraf.conf
-  notify: Restart raspberry-monitoring
-  become: false
+    src: templates/raspberry-monitoring/gpu-temp.sh.j2
+    dest: /usr/local/bin/gpu-temp.sh
+    mode: 0755
+  become: true
+
+- name: Schedule gpu-temp cron job
+  ansible.builtin.cron:
+    name: gpu_temp_metrics
+    job: /usr/local/bin/gpu-temp.sh
+    minute: "*"
+  become: true
 
 - name: Copy raspberry-monitoring dashboard config to grafana
   ansible.builtin.copy:
@@ -39,10 +26,4 @@
     dest: "{{ config_dir }}/internet-monitoring/grafana/provisioning/dashboards/"
     mode: 0644
   notify: Restart internet-monitoring
-  become: false
-
-- name: Ensure raspberry-monitoring environment is running.
-  community.docker.docker_compose_v2:
-    project_src: "{{ config_dir }}/raspberry-monitoring/"
-    build: never
   become: false

@@ -13,8 +13,6 @@ docker_image_versions:
   pihole: '2026.04.1'
   pihole_exporter: 'v1.2.0'
   wireguard: '15'
-  influxdb: '1.8.10'
-  telegraf: '1.38.3'
   homebridge: '2026-07-20'
   php_apache: '8.4.20-apache'
   starlink_exporter: 'v0.0.5'
@@ -41,8 +39,6 @@ wireguard_password: "change-this-password"
 
 # Raspberry monitoring configuration
 raspberry_monitoring_enable: false
-telegraf_retention_policy: '90d'
-telegraf_password: 'admin'
 
 # Internet monitoring configuration.
 monitoring_enable: true
