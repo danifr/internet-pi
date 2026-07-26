@@ -19,11 +19,3 @@
     job: /usr/local/bin/gpu-temp.sh
     minute: "*"
   become: true
-
-- name: Copy raspberry-monitoring dashboard config to grafana
-  ansible.builtin.copy:
-    src: files/raspberry-monitoring.json
-    dest: "{{ config_dir }}/internet-monitoring/grafana/provisioning/dashboards/"
-    mode: 0644
-  notify: Restart internet-monitoring
-  become: false
