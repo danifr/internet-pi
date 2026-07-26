@@ -73,6 +73,9 @@ services:
 {% if domain_name_enable and domain_name and domain_prometheus %}
       - "{{ domain_prometheus }}.{{ domain_name }}:{{ ansible_facts['default_ipv4']['address'] }}"
 {% endif %}
+{% if domain_name_enable and domain_name and domain_homebridge is defined and domain_homebridge %}
+      - "{{ domain_homebridge }}.{{ domain_name }}:{{ ansible_facts['default_ipv4']['address'] }}"
+{% endif %}
 {% endif %}
 
   pihole-exporter:

@@ -40,3 +40,10 @@
     build: never
     state: restarted
   become: false
+
+- name: Restart homebridge
+  community.docker.docker_compose_v2:
+    project_src: "{{ config_dir }}/homebridge/"
+    build: never
+    state: restarted
+  become: false
