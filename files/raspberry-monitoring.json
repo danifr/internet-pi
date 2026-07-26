@@ -2179,7 +2179,10 @@
         "includeAll": false,
         "multi": false,
         "options": [],
-        "current": {},
+        "current": {
+          "text": "nodeexp:9100",
+          "value": "nodeexp:9100"
+        },
         "hide": 0,
         "sort": 2
       },
@@ -2207,7 +2210,7 @@
         "refresh": 1,
         "includeAll": true,
         "multi": true,
-        "regex": "/[a-z]d[\\D]$/",
+        "regex": "^(sd[a-z]|mmcblk[0-9]+|nvme[0-9]+n[0-9]+|vd[a-z]|hd[a-z])$",
         "options": [],
         "current": {},
         "hide": 0,
