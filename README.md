@@ -36,14 +36,12 @@ wireguard_default_address: 10.8.100.x
 wireguard_password: "Supersecret"
 ```
 
-(✨ danifr's fork) **Rasberry Pi monitoring**: Installs Influxdb, Telegraf, and a [Grafana dashboard](https://grafana.com/grafana/dashboards/10578) to monitor your Raspberry stats.
+(✨ danifr's fork) **Rasberry Pi monitoring**: Installs a Grafana dashboard to monitor your Raspberry Pi stats. Metrics are collected by node_exporter, with GPU temperature exposed via a cron-driven textfile collector using `vcgencmd`.
 
 Just add these lines to your `config.yml` to start using it:
 
 ```
 raspberry_monitoring_enable: true
-telegraf_retention_policy: '90d'
-telegraf_password: 'admin'
 ```
 
 ![Raspberry Pi Monitoring Dashboard in Grafana](/images/raspberrypi-monitoring.png)

@@ -1,0 +1,8 @@
+#!/bin/bash
+# {{ ansible_managed }}
+TEMP=$(/usr/bin/vcgencmd measure_temp | grep -oP '[0-9.]+')
+cat > /var/lib/node_exporter/textfile_collector/gpu_temp.prom <<EOF
+# HELP gpu_temperature_celsius GPU temperature from vcgencmd
+# TYPE gpu_temperature_celsius gauge
+gpu_temperature_celsius $TEMP
+EOF
