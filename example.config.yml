@@ -4,17 +4,17 @@ config_dir: '~'
 
 # Docker image versions
 docker_image_versions:
-  nginx_proxy: '1.10-alpine'
-  prometheus: 'v3.11.2'
-  grafana: '13.0.1'
+  nginx_proxy: '1.30-alpine'
+  prometheus: 'v3.13.1'
+  grafana: '13.1.1'
   blackbox_exporter: 'v0.28.0'
   speedtest_exporter: 'v3.5.4'
-  node_exporter: 'v1.10.2'
-  pihole: '2026.04.1'
+  node_exporter: 'v1.12.1'
+  pihole: '2026.07.2'
   pihole_exporter: 'v1.2.0'
   wireguard: '15'
   homebridge: '2026-07-20'
-  php_apache: '8.4.20-apache'
+  php_apache: '8.5.8-apache'
   starlink_exporter: 'v0.0.5'
 
 # Domain names configuration (related services need to be enabled).
