@@ -64,7 +64,10 @@
       "type": "singlestat",
       "id": 2,
       "title": "Uptime",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 4,
         "w": 2,
@@ -81,7 +84,11 @@
         {
           "expr": "node_time_seconds{instance=~\"$server.*\"} - node_boot_time_seconds{instance=~\"$server.*\"}",
           "refId": "A",
-          "instant": true
+          "instant": true,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "colors": [
@@ -131,7 +138,10 @@
       "type": "singlestat",
       "id": 3,
       "title": "CPU Temperature",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 4,
         "w": 2,
@@ -148,7 +158,11 @@
         {
           "expr": "node_thermal_zone_temp{instance=~\"$server.*\", type=\"cpu-thermal\"}",
           "refId": "A",
-          "instant": true
+          "instant": true,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "colors": [
@@ -198,7 +212,10 @@
       "type": "singlestat",
       "id": 4,
       "title": "GPU Temperature",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 4,
         "w": 2,
@@ -215,7 +232,11 @@
         {
           "expr": "gpu_temperature_celsius{instance=~\"$server.*\"}",
           "refId": "A",
-          "instant": true
+          "instant": true,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "colors": [
@@ -265,7 +286,10 @@
       "type": "singlestat",
       "id": 5,
       "title": "LA medium",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 4,
         "w": 2,
@@ -282,7 +306,11 @@
         {
           "expr": "node_load5{instance=~\"$server.*\"}",
           "refId": "A",
-          "instant": true
+          "instant": true,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "colors": [
@@ -332,7 +360,10 @@
       "type": "singlestat",
       "id": 6,
       "title": "Zombies",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 4,
         "w": 2,
@@ -349,7 +380,11 @@
         {
           "expr": "node_procs_blocked{instance=~\"$server.*\"}",
           "refId": "A",
-          "instant": true
+          "instant": true,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "colors": [
@@ -399,7 +434,10 @@
       "type": "singlestat",
       "id": 7,
       "title": "Processes",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 4,
         "w": 2,
@@ -416,7 +454,11 @@
         {
           "expr": "node_procs_running{instance=~\"$server.*\"}",
           "refId": "A",
-          "instant": true
+          "instant": true,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "colors": [
@@ -466,7 +508,10 @@
       "type": "singlestat",
       "id": 8,
       "title": "Threads",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 4,
         "w": 2,
@@ -483,7 +528,11 @@
         {
           "expr": "node_procs_running{instance=~\"$server.*\"}",
           "refId": "A",
-          "instant": true
+          "instant": true,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "colors": [
@@ -533,7 +582,10 @@
       "type": "singlestat",
       "id": 9,
       "title": "CPU usage",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 4,
         "w": 2,
@@ -550,7 +602,11 @@
         {
           "expr": "100 - avg(rate(node_cpu_seconds_total{instance=~\"$server.*\", mode=\"idle\"}[$__rate_interval])) * 100",
           "refId": "A",
-          "instant": true
+          "instant": true,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "colors": [
@@ -600,7 +656,10 @@
       "type": "singlestat",
       "id": 10,
       "title": "RAM usage",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 4,
         "w": 2,
@@ -617,7 +676,11 @@
         {
           "expr": "100 - (node_memory_MemAvailable_bytes{instance=~\"$server.*\"} / node_memory_MemTotal_bytes{instance=~\"$server.*\"} * 100)",
           "refId": "A",
-          "instant": true
+          "instant": true,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "colors": [
@@ -667,7 +730,10 @@
       "type": "singlestat",
       "id": 11,
       "title": "Swap usage",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 4,
         "w": 2,
@@ -684,7 +750,11 @@
         {
           "expr": "(node_memory_SwapTotal_bytes{instance=~\"$server.*\"} - node_memory_SwapFree_bytes{instance=~\"$server.*\"}) / node_memory_SwapTotal_bytes{instance=~\"$server.*\"} * 100",
           "refId": "A",
-          "instant": true
+          "instant": true,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "colors": [
@@ -734,7 +804,10 @@
       "type": "singlestat",
       "id": 12,
       "title": "RootFS used",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 4,
         "w": 2,
@@ -751,7 +824,11 @@
         {
           "expr": "100 - (node_filesystem_avail_bytes{instance=~\"$server.*\", mountpoint=\"/\"} / node_filesystem_size_bytes{instance=~\"$server.*\", mountpoint=\"/\"} * 100)",
           "refId": "A",
-          "instant": true
+          "instant": true,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "colors": [
@@ -801,7 +878,10 @@
       "type": "singlestat",
       "id": 13,
       "title": "IOWait",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 4,
         "w": 2,
@@ -818,7 +898,11 @@
         {
           "expr": "avg(rate(node_cpu_seconds_total{instance=~\"$server.*\", mode=\"iowait\"}[$__rate_interval])) * 100",
           "refId": "A",
-          "instant": true
+          "instant": true,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "colors": [
@@ -881,7 +965,10 @@
       "type": "graph",
       "id": 21,
       "title": "CPU usage",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 8,
         "w": 12,
@@ -892,22 +979,38 @@
         {
           "expr": "avg(rate(node_cpu_seconds_total{instance=~\"$server.*\", mode=\"user\"}[$__rate_interval])) * 100",
           "legendFormat": "user",
-          "refId": "A"
+          "refId": "A",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         },
         {
           "expr": "avg(rate(node_cpu_seconds_total{instance=~\"$server.*\", mode=\"system\"}[$__rate_interval])) * 100",
           "legendFormat": "system",
-          "refId": "B"
+          "refId": "B",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         },
         {
           "expr": "avg(rate(node_cpu_seconds_total{instance=~\"$server.*\", mode=\"iowait\"}[$__rate_interval])) * 100",
           "legendFormat": "iowait",
-          "refId": "C"
+          "refId": "C",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         },
         {
           "expr": "avg(rate(node_cpu_seconds_total{instance=~\"$server.*\", mode=\"softirq\"}[$__rate_interval])) * 100",
           "legendFormat": "softirq",
-          "refId": "D"
+          "refId": "D",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "lines": true,
@@ -957,7 +1060,10 @@
       "type": "graph",
       "id": 22,
       "title": "Memory usage",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 8,
         "w": 12,
@@ -968,27 +1074,47 @@
         {
           "expr": "node_memory_MemTotal_bytes{instance=~\"$server.*\"}",
           "legendFormat": "total",
-          "refId": "A"
+          "refId": "A",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         },
         {
           "expr": "node_memory_MemTotal_bytes{instance=~\"$server.*\"} - node_memory_MemAvailable_bytes{instance=~\"$server.*\"}",
           "legendFormat": "used",
-          "refId": "B"
+          "refId": "B",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         },
         {
           "expr": "node_memory_Cached_bytes{instance=~\"$server.*\"}",
           "legendFormat": "cached",
-          "refId": "C"
+          "refId": "C",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         },
         {
           "expr": "node_memory_MemFree_bytes{instance=~\"$server.*\"}",
           "legendFormat": "free",
-          "refId": "D"
+          "refId": "D",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         },
         {
           "expr": "node_memory_Buffers_bytes{instance=~\"$server.*\"}",
           "legendFormat": "buffered",
-          "refId": "E"
+          "refId": "E",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "lines": true,
@@ -1038,7 +1164,10 @@
       "type": "graph",
       "id": 23,
       "title": "Processes",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 9,
         "w": 12,
@@ -1049,27 +1178,47 @@
         {
           "expr": "node_procs_running{instance=~\"$server.*\"}",
           "legendFormat": "running",
-          "refId": "A"
+          "refId": "A",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         },
         {
           "expr": "node_procs_blocked{instance=~\"$server.*\"}",
           "legendFormat": "blocked",
-          "refId": "B"
+          "refId": "B",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         },
         {
           "expr": "node_procs_running{instance=~\"$server.*\"}",
           "legendFormat": "sleeping",
-          "refId": "C"
+          "refId": "C",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         },
         {
           "expr": "node_procs_blocked{instance=~\"$server.*\"}",
           "legendFormat": "stopped",
-          "refId": "D"
+          "refId": "D",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         },
         {
           "expr": "node_procs_blocked{instance=~\"$server.*\"}",
           "legendFormat": "zombies",
-          "refId": "E"
+          "refId": "E",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "lines": true,
@@ -1119,7 +1268,10 @@
       "type": "graph",
       "id": 24,
       "title": "Load averages",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 9,
         "w": 12,
@@ -1130,17 +1282,29 @@
         {
           "expr": "node_load1{instance=~\"$server.*\"}",
           "legendFormat": "1m",
-          "refId": "A"
+          "refId": "A",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         },
         {
           "expr": "node_load5{instance=~\"$server.*\"}",
           "legendFormat": "5m",
-          "refId": "B"
+          "refId": "B",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         },
         {
           "expr": "node_load15{instance=~\"$server.*\"}",
           "legendFormat": "15m",
-          "refId": "C"
+          "refId": "C",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "lines": true,
@@ -1190,7 +1354,10 @@
       "type": "graph",
       "id": 25,
       "title": "Context switches",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 10,
         "w": 12,
@@ -1201,7 +1368,11 @@
         {
           "expr": "rate(node_context_switches_total{instance=~\"$server.*\"}[$__rate_interval])",
           "legendFormat": "context switches",
-          "refId": "A"
+          "refId": "A",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "lines": true,
@@ -1251,7 +1422,10 @@
       "type": "graph",
       "id": 26,
       "title": "Forks",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 10,
         "w": 12,
@@ -1262,7 +1436,11 @@
         {
           "expr": "rate(node_forks_total{instance=~\"$server.*\"}[$__rate_interval])",
           "legendFormat": "forks",
-          "refId": "A"
+          "refId": "A",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "lines": true,
@@ -1326,7 +1504,10 @@
       "type": "graph",
       "id": 31,
       "title": "Network Usage",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 7,
         "w": 12,
@@ -1337,12 +1518,20 @@
         {
           "expr": "rate(node_network_receive_bytes_total{instance=~\"$server.*\", device=~\"$netif\"}[$__rate_interval]) * 8",
           "legendFormat": "in",
-          "refId": "A"
+          "refId": "A",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         },
         {
           "expr": "rate(node_network_transmit_bytes_total{instance=~\"$server.*\", device=~\"$netif\"}[$__rate_interval]) * 8",
           "legendFormat": "out",
-          "refId": "B"
+          "refId": "B",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "lines": true,
@@ -1397,7 +1586,10 @@
       "type": "graph",
       "id": 32,
       "title": "Network Packets",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 7,
         "w": 12,
@@ -1408,12 +1600,20 @@
         {
           "expr": "rate(node_network_receive_packets_total{instance=~\"$server.*\", device=~\"$netif\"}[$__rate_interval])",
           "legendFormat": "in",
-          "refId": "A"
+          "refId": "A",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         },
         {
           "expr": "rate(node_network_transmit_packets_total{instance=~\"$server.*\", device=~\"$netif\"}[$__rate_interval])",
           "legendFormat": "out",
-          "refId": "B"
+          "refId": "B",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "lines": true,
@@ -1468,7 +1668,10 @@
       "type": "graph",
       "id": 33,
       "title": "Network drops",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 7,
         "w": 12,
@@ -1479,12 +1682,20 @@
         {
           "expr": "rate(node_network_receive_drop_total{instance=~\"$server.*\", device=~\"$netif\"}[$__rate_interval])",
           "legendFormat": "in",
-          "refId": "A"
+          "refId": "A",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         },
         {
           "expr": "rate(node_network_transmit_drop_total{instance=~\"$server.*\", device=~\"$netif\"}[$__rate_interval])",
           "legendFormat": "out",
-          "refId": "B"
+          "refId": "B",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "lines": true,
@@ -1534,7 +1745,10 @@
       "type": "graph",
       "id": 34,
       "title": "Network errors",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 7,
         "w": 12,
@@ -1545,12 +1759,20 @@
         {
           "expr": "rate(node_network_receive_errs_total{instance=~\"$server.*\", device=~\"$netif\"}[$__rate_interval])",
           "legendFormat": "in",
-          "refId": "A"
+          "refId": "A",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         },
         {
           "expr": "rate(node_network_transmit_errs_total{instance=~\"$server.*\", device=~\"$netif\"}[$__rate_interval])",
           "legendFormat": "out",
-          "refId": "B"
+          "refId": "B",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "lines": true,
@@ -1613,7 +1835,10 @@
       "type": "graph",
       "id": 41,
       "title": "Swap I/O bytes",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 7,
         "w": 12,
@@ -1624,12 +1849,20 @@
         {
           "expr": "rate(node_vmstat_pswpin{instance=~\"$server.*\"}[$__rate_interval])",
           "legendFormat": "in",
-          "refId": "A"
+          "refId": "A",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         },
         {
           "expr": "rate(node_vmstat_pswpout{instance=~\"$server.*\"}[$__rate_interval])",
           "legendFormat": "out",
-          "refId": "B"
+          "refId": "B",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "lines": true,
@@ -1684,7 +1917,10 @@
       "type": "graph",
       "id": 42,
       "title": "Swap usage (bytes)",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 7,
         "w": 12,
@@ -1695,12 +1931,20 @@
         {
           "expr": "node_memory_SwapTotal_bytes{instance=~\"$server.*\"} - node_memory_SwapFree_bytes{instance=~\"$server.*\"}",
           "legendFormat": "used",
-          "refId": "A"
+          "refId": "A",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         },
         {
           "expr": "node_memory_SwapTotal_bytes{instance=~\"$server.*\"}",
           "legendFormat": "total",
-          "refId": "B"
+          "refId": "B",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "lines": true,
@@ -1764,7 +2008,10 @@
       "type": "graph",
       "id": 51,
       "title": "Disk I/O requests for /dev/$disk",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 7,
         "w": 8,
@@ -1775,12 +2022,20 @@
         {
           "expr": "rate(node_disk_reads_completed_total{instance=~\"$server.*\", device=~\"$disk\"}[$__rate_interval])",
           "legendFormat": "read",
-          "refId": "A"
+          "refId": "A",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         },
         {
           "expr": "rate(node_disk_writes_completed_total{instance=~\"$server.*\", device=~\"$disk\"}[$__rate_interval])",
           "legendFormat": "write",
-          "refId": "B"
+          "refId": "B",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "lines": true,
@@ -1835,7 +2090,10 @@
       "type": "graph",
       "id": 52,
       "title": "Disk I/O bytes for /dev/$disk",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 7,
         "w": 8,
@@ -1846,12 +2104,20 @@
         {
           "expr": "rate(node_disk_read_bytes_total{instance=~\"$server.*\", device=~\"$disk\"}[$__rate_interval])",
           "legendFormat": "read",
-          "refId": "A"
+          "refId": "A",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         },
         {
           "expr": "rate(node_disk_written_bytes_total{instance=~\"$server.*\", device=~\"$disk\"}[$__rate_interval])",
           "legendFormat": "write",
-          "refId": "B"
+          "refId": "B",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "lines": true,
@@ -1906,7 +2172,10 @@
       "type": "graph",
       "id": 53,
       "title": "Disk I/O time for /dev/$disk",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 7,
         "w": 8,
@@ -1917,12 +2186,20 @@
         {
           "expr": "rate(node_disk_read_time_seconds_total{instance=~\"$server.*\", device=~\"$disk\"}[$__rate_interval])",
           "legendFormat": "read",
-          "refId": "A"
+          "refId": "A",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         },
         {
           "expr": "rate(node_disk_write_time_seconds_total{instance=~\"$server.*\", device=~\"$disk\"}[$__rate_interval])",
           "legendFormat": "write",
-          "refId": "B"
+          "refId": "B",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "lines": true,
@@ -1991,7 +2268,10 @@
       "type": "graph",
       "id": 61,
       "title": "Disk usage for $mountpoint",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 7,
         "w": 12,
@@ -2002,12 +2282,20 @@
         {
           "expr": "node_filesystem_size_bytes{instance=~\"$server.*\", mountpoint=~\"$mountpoint\"}",
           "legendFormat": "total",
-          "refId": "A"
+          "refId": "A",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         },
         {
           "expr": "node_filesystem_size_bytes{instance=~\"$server.*\", mountpoint=~\"$mountpoint\"} - node_filesystem_avail_bytes{instance=~\"$server.*\", mountpoint=~\"$mountpoint\"}",
           "legendFormat": "used",
-          "refId": "B"
+          "refId": "B",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "lines": true,
@@ -2057,7 +2345,10 @@
       "type": "graph",
       "id": 62,
       "title": "Disk inodes for $mountpoint",
-      "datasource": "prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 7,
         "w": 12,
@@ -2068,12 +2359,20 @@
         {
           "expr": "node_filesystem_files_free{instance=~\"$server.*\", mountpoint=~\"$mountpoint\"}",
           "legendFormat": "used",
-          "refId": "A"
+          "refId": "A",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         },
         {
           "expr": "node_filesystem_files{instance=~\"$server.*\", mountpoint=~\"$mountpoint\"}",
           "legendFormat": "total",
-          "refId": "B"
+          "refId": "B",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          }
         }
       ],
       "lines": true,
@@ -2173,7 +2472,10 @@
         "type": "query",
         "name": "server",
         "label": "Server",
-        "datasource": "prometheus",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
         "query": "label_values(node_uname_info, instance)",
         "refresh": 1,
         "includeAll": false,
@@ -2190,7 +2492,10 @@
         "type": "query",
         "name": "mountpoint",
         "label": "Mountpoint",
-        "datasource": "prometheus",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
         "query": "label_values(node_filesystem_size_bytes{instance=~\"$server.*\"}, mountpoint)",
         "refresh": 1,
         "includeAll": true,
@@ -2205,7 +2510,10 @@
         "type": "query",
         "name": "disk",
         "label": "Disk",
-        "datasource": "prometheus",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
         "query": "label_values(node_disk_reads_completed_total{instance=~\"$server.*\"}, device)",
         "refresh": 1,
         "includeAll": true,
@@ -2220,7 +2528,10 @@
         "type": "query",
         "name": "netif",
         "label": "Network interface",
-        "datasource": "prometheus",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
         "query": "label_values(node_network_receive_bytes_total{instance=~\"$server.*\"}, device)",
         "refresh": 1,
         "includeAll": true,
