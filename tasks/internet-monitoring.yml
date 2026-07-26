@@ -52,12 +52,23 @@
     mode: 0644
   notify: Restart internet-monitoring
   become: false
+  when: pihole_enable
 
 - name: Replace DS_PROMETHEUS by prometheus
   ansible.builtin.replace:
     path: "{{ config_dir }}/internet-monitoring/grafana/provisioning/dashboards/pihole-exporter.json"
     regexp: '(\.*)\${DS_PROMETHEUS}(\.*)'
     replace: '\1prometheus\2'
+  when: pihole_enable
+
+- name: Copy raspberry-monitoring dashboard config to grafana
+  ansible.builtin.copy:
+    src: files/raspberry-monitoring.json
+    dest: "{{ config_dir }}/internet-monitoring/grafana/provisioning/dashboards/"
+    mode: 0644
+  notify: Restart internet-monitoring
+  become: false
+  when: raspberry_monitoring_enable
 
 - name: Ensure internet-monitoring environment is running.
   community.docker.docker_compose_v2:
