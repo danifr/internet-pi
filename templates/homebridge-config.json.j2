@@ -1,0 +1,36 @@
+{
+    "bridge": {
+        "name": "Homebridge {{ homebridge_bridge_name }}",
+        "username": "{{ homebridge_bridge_mac }}",
+        "port": 51580,
+        "pin": "{{ homebridge_pin }}"
+    },
+    "platforms": [
+        {
+            "name": "Config",
+            "port": {{ homebridge_port }},
+            "platform": "config"
+        },
+        {
+            "name": "Camera ffmpeg",
+            "platform": "Camera-ffmpeg",
+            "cameras": [
+{% for camera in homebridge_cameras %}
+                {
+                    "name": "{{ camera.name }}",
+                    "videoConfig": {
+                        "source": "-analyzeduration 0 -probesize 32 -fflags nobuffer -flags low_delay -r {{ camera.max_fps | default(10) }} -f mjpeg -i {{ camera.stream_url }} -vf format=yuv420p",
+                        "stillImageSource": "-analyzeduration 0 -probesize 32 -fflags nobuffer -f mjpeg -i {{ camera.stream_url }} -vframes 1 -q:v 2",
+                        "maxStreams": {{ camera.max_streams | default(2) }},
+                        "maxWidth": {{ camera.max_width | default(1296) }},
+                        "maxHeight": {{ camera.max_height | default(972) }},
+                        "maxFPS": {{ camera.max_fps | default(10) }},
+                        "audio": false,
+                        "vcodec": "{{ camera.vcodec | default('h264_v4l2m2m') }}"
+                    }
+                }{{ "," if not loop.last else "" }}
+{% endfor %}
+            ]
+        }
+    ]
+}

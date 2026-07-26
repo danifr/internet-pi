@@ -1,0 +1,101 @@
+---
+- name: Create Homebridge folder on Pi.
+  ansible.builtin.file:
+    path: "{{ config_dir }}/homebridge"
+    state: directory
+    mode: 0755
+  become: false
+  register: homebridge_dir
+
+- name: Copy Homebridge docker-compose template to Pi.
+  ansible.builtin.template:
+    src: templates/homebridge-docker-compose.yml.j2
+    dest: "{{ homebridge_dir.path }}/docker-compose.yml"
+    mode: '0640'
+  become: false
+  notify: Restart homebridge
+
+- name: Copy Homebridge nginx proxy config to Pi.
+  ansible.builtin.template:
+    src: templates/homebridge-nginx-proxy.conf.j2
+    dest: "{{ homebridge_dir.path }}/nginx-proxy.conf"
+    mode: '0640'
+  become: false
+  when: domain_name_enable and domain_name and domain_homebridge is defined
+  notify: Restart homebridge
+
+- name: Ensure Homebridge data directory exists.
+  ansible.builtin.file:
+    path: "{{ homebridge_dir.path }}/homebridge"
+    state: directory
+    mode: 0755
+  become: false
+
+- name: Copy Homebridge config template to Pi.
+  ansible.builtin.template:
+    src: templates/homebridge-config.json.j2
+    dest: "{{ homebridge_dir.path }}/homebridge/config.json"
+    mode: '0640'
+  become: false
+  notify: Restart homebridge
+
+- name: Check if Homebridge auth.json exists.
+  ansible.builtin.stat:
+    path: "{{ homebridge_dir.path }}/homebridge/auth.json"
+  register: homebridge_auth_file
+
+- name: Create Homebridge admin account.
+  ansible.builtin.command:
+    cmd: >
+      docker exec homebridge node -e "
+        const crypto = require('crypto');
+        const fs = require('fs');
+        const salt = crypto.randomBytes(32).toString('hex');
+        crypto.pbkdf2('{{ homebridge_admin_password }}', salt, 1000, 64, 'sha512', (err, key) => {
+          const auth = [{id:1, username:'{{ homebridge_admin_username }}', name:'{{ homebridge_admin_username }}', hashedPassword:key.toString('hex'), salt:salt, admin:true}];
+          fs.writeFileSync('/var/lib/homebridge/auth.json', JSON.stringify(auth, null, 4));
+        });
+      "
+  when: not homebridge_auth_file.stat.exists
+  changed_when: true
+
+- name: Reset connection to pick up docker group membership.
+  meta: reset_connection
+
+- name: Ensure Homebridge is running.
+  community.docker.docker_compose_v2:
+    project_src: "{{ homebridge_dir.path }}/"
+    build: never
+  become: false
+
+- name: Wait for Homebridge to be ready.
+  ansible.builtin.uri:
+    url: "http://localhost:{{ homebridge_port }}"
+    status_code: 200
+  register: homebridge_ready
+  retries: 30
+  delay: 5
+  until: homebridge_ready is not failed
+
+- name: Check if homebridge-camera-ffmpeg plugin is installed.
+  ansible.builtin.command:
+    cmd: docker exec homebridge npm --prefix /var/lib/homebridge list @homebridge-plugins/homebridge-camera-ffmpeg
+  register: plugin_check
+  changed_when: false
+  failed_when: false
+
+- name: Install homebridge-camera-ffmpeg plugin.
+  ansible.builtin.command:
+    cmd: docker exec homebridge npm --prefix /var/lib/homebridge install @homebridge-plugins/homebridge-camera-ffmpeg@latest
+  register: plugin_install
+  changed_when: "'added' in plugin_install.stdout"
+  failed_when: plugin_install.rc != 0
+  when: "'@homebridge-plugins/homebridge-camera-ffmpeg' not in plugin_check.stdout"
+
+- name: Restart Homebridge after plugin install.
+  community.docker.docker_compose_v2:
+    project_src: "{{ homebridge_dir.path }}/"
+    build: never
+    state: restarted
+  become: false
+  when: plugin_install.changed
