@@ -25,7 +25,9 @@
   ansible.builtin.file:
     path: "/etc/resolvconf.conf"
     state: touch
-    mode: "744"
+    access_time: preserve
+    modification_time: preserve
+    mode: "0744"
 
 - name: Update resolveconf for local name server use.
   ansible.builtin.lineinfile:
