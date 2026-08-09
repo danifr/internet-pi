@@ -15,9 +15,6 @@
   become: false
   notify: Restart pi-hole
 
-- name: Reset connection to pick up docker group membership.
-  meta: reset_connection
-
 - name: Ensure Pi-hole is running.
   community.docker.docker_compose_v2:
     project_src: "{{ pi_hole_dir.path }}/"

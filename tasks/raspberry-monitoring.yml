@@ -17,5 +17,5 @@
   ansible.builtin.cron:
     name: gpu_temp_metrics
     job: /usr/local/bin/gpu-temp.sh
-    minute: "*"
+    minute: "*/2"
   become: true
