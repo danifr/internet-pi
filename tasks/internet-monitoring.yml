@@ -1,16 +1,4 @@
 ---
-- name: Gather package facts.
-  ansible.builtin.package_facts:
-    manager: auto
-  when: ansible_facts.userspace_bits == '32'
-
-- name: Upgrade libseccomp2 to latest version (32-bit Debian).
-  ansible.builtin.import_tasks: tasks/debian-libseccomp-update.yml
-  when:
-    - ansible_facts.os_family == "Debian"
-    - ansible_facts.userspace_bits == '32'
-    - ansible_facts.packages['libseccomp2'][0]['version'] is version('2.4.4', '<')
-
 - name: Synchronize internet-monitoring directory.
   ansible.posix.synchronize:
     src: internet-monitoring
@@ -44,21 +32,14 @@
   notify: Restart internet-monitoring
   become: false
 
-- name: Download pihole-exporter dashboard
-  ansible.builtin.get_url:
-    # yamllint disable-line rule:line-length
-    url: https://raw.githubusercontent.com/eko/pihole-exporter/refs/tags/{{ docker_image_versions.pihole_exporter }}/grafana/dashboard.json
+# Vendored from eko/pihole-exporter v1.2.0; update this file manually when upgrading the exporter.
+- name: Copy pihole-exporter dashboard to Grafana.
+  ansible.builtin.copy:
+    src: files/pihole-exporter.json
     dest: "{{ config_dir }}/internet-monitoring/grafana/provisioning/dashboards/pihole-exporter.json"
     mode: 0644
   notify: Restart internet-monitoring
   become: false
-  when: pihole_enable
-
-- name: Replace DS_PROMETHEUS by prometheus
-  ansible.builtin.replace:
-    path: "{{ config_dir }}/internet-monitoring/grafana/provisioning/dashboards/pihole-exporter.json"
-    regexp: '(\.*)\${DS_PROMETHEUS}(\.*)'
-    replace: '\1prometheus\2'
   when: pihole_enable
 
 - name: Copy raspberry-monitoring dashboard config to grafana

@@ -43,8 +43,8 @@ raspberry_monitoring_enable: false
 # Internet monitoring configuration.
 monitoring_enable: true
 monitoring_grafana_admin_password: "admin"
-monitoring_speedtest_interval: 60m
-monitoring_ping_interval: 30s
+monitoring_speedtest_interval: 6h
+monitoring_ping_interval: 60s
 monitoring_ping_hosts:  # [URL];[HUMAN_READABLE_NAME]
   - http://www.google.com/;google.com
   - https://github.com/;github.com
@@ -52,6 +52,7 @@ monitoring_ping_hosts:  # [URL];[HUMAN_READABLE_NAME]
 
 # Prometheus configuration.
 prometheus_monitor_prometheus: false
+prometheus_scrape_interval: 30s
 prometheus_node_exporter_targets:
   - 'nodeexp:9100'
 prometheus_extra_scrape_configs: ''
@@ -87,6 +88,6 @@ homebridge_cameras:
     stream_url: "http://192.168.1.4:8888/stream.mjpg"
     max_width: 1280
     max_height: 720
-    max_fps: 10
-    max_streams: 2
+    max_fps: 5
+    max_streams: 1
     vcodec: "h264_v4l2m2m"

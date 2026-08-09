@@ -1,0 +1,132 @@
+---
+- name: Bootstrap Internet Pi.
+  hosts: internet_pi
+  become: true
+  gather_facts: false
+
+  pre_tasks:
+    - name: Gather required Ansible facts.
+      ansible.builtin.setup:
+        gather_subset:
+          - '!all'
+          - min
+          - distribution
+          - architecture
+          - network
+
+    - name: Load configuration (with defaults from example file).
+      ansible.builtin.include_vars: "{{ item }}"
+      loop:
+        - example.config.yml
+        - config.yml
+
+    - name: Ensure apt cache is up to date.
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+      when:
+        - ansible_facts.os_family == "Debian"
+
+    - name: Ensure pacman cache is up to date.
+      community.general.pacman:
+        update_cache: true
+      when:
+        - ansible_facts.os_family == "Archlinux"
+
+  tasks:
+    - name: Gather package facts for 32-bit Debian.
+      ansible.builtin.package_facts:
+        manager: auto
+      when:
+        - ansible_facts.os_family == "Debian"
+        - ansible_facts.userspace_bits == '32'
+
+    - name: Upgrade libseccomp2 to latest version (32-bit Debian).
+      block:
+        - name: Add Buster backports apt key.
+          ansible.builtin.apt_key:
+            keyserver: hkp://keyserver.ubuntu.com:80
+            id: '{{ item }}'
+          loop:
+            - 04EE7237B7D453EC
+            - 648ACFD622F3D138
+            - 0E98404D386FA1D9
+            - 6ED0E7B82643E131
+
+        - name: Add Buster backports for fixed libseccomp2.
+          ansible.builtin.apt_repository:
+            repo: deb http://httpredir.debian.org/debian buster-backports main contrib non-free
+            state: present
+            filename: debian-backports
+
+        - name: Install >libseccomp2.4.4 to fix 32-bit OS issue.
+          ansible.builtin.apt:
+            name: libseccomp2
+            state: latest  # noqa package-latest
+            default_release: buster-backports
+      when:
+        - ansible_facts.os_family == "Debian"
+        - ansible_facts.userspace_bits == '32'
+        - ansible_facts.packages['libseccomp2'][0]['version'] is version('2.4.4', '<')
+
+    - name: Check if Docker is already present.
+      ansible.builtin.command: which docker
+      failed_when: false
+      changed_when: false
+      check_mode: false
+      register: docker_command_result
+
+    - name: Download Docker install convenience script.
+      ansible.builtin.get_url:
+        url: https://get.docker.com/
+        dest: /tmp/get-docker.sh
+        mode: 0775
+      when: docker_command_result.rc == 1
+
+    - name: Run Docker install convenience script.
+      ansible.builtin.command: /tmp/get-docker.sh
+      environment:
+        CHANNEL: stable
+      when: docker_command_result.rc == 1
+
+    - name: Ensure Docker is started.
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: Ensure dependencies are installed (Debian).
+      ansible.builtin.apt:
+        name:
+          - libffi-dev
+          - libssl-dev
+          - python3-pip
+          - git
+          - rsync
+          - docker-compose-plugin
+          - resolvconf
+        state: present
+      when: ansible_facts.os_family == "Debian"
+
+    - name: Ensure dependencies are installed (Archlinux).
+      community.general.pacman:
+        name:
+          - libffi
+          - openssl
+          - base-devel
+          - python-pip
+          - git
+          - rsync
+          - docker-compose-plugin
+        state: present
+      when: ansible_facts.os_family == "Archlinux"
+
+    - name: "Ensure user is added to the docker group: {{ ansible_user }}"
+      ansible.builtin.user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        append: true
+
+    # reset_connection doesn't support conditionals.
+    - name: Reset connection so docker group is picked up.
+      ansible.builtin.meta: reset_connection

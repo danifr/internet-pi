@@ -2,35 +2,29 @@
 - name: Configure Internet Pi.
   hosts: internet_pi
   become: true
+  gather_facts: false
 
   pre_tasks:
+    - name: Gather required Ansible facts.
+      ansible.builtin.setup:
+        gather_subset:
+          - '!all'
+          - min
+          - distribution
+          - architecture
+          - network
+
     - name: Load configuration (with defaults from example file).
       ansible.builtin.include_vars: "{{ item }}"
       loop:
         - example.config.yml
         - config.yml
 
-    - name: Ensure apt cache is up to date.
-      ansible.builtin.apt:
-        update_cache: true
-        cache_valid_time: 3600
-      when:
-        - ansible_facts.os_family == "Debian"
-
-    - name: Ensure pacman cache is up to date
-      community.general.pacman:
-        update_cache: true
-      when:
-        - ansible_facts.os_family == "Archlinux"
-
   handlers:
     - name: Include handlers.
       ansible.builtin.import_tasks: tasks/handlers.yml
 
   tasks:
-    - name: Setup Docker.
-      ansible.builtin.import_tasks: tasks/docker.yml
-
     - name: Set up Internet Monitoring.
       ansible.builtin.import_tasks: tasks/internet-monitoring.yml
       when: monitoring_enable

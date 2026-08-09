@@ -82,7 +82,8 @@ It should also work with Ubuntu for Pi, or Arch Linux, but has not been tested o
   4. Make copies of the following files and customize them to your liking:
      - `example.inventory.ini` to `inventory.ini` (replace IP address with your Pi's IP, or comment that line and uncomment the `connection=local` line if you're running it on the Pi you're setting up).
      - `example.config.yml` to `config.yml`
-  5. Run the playbook: `ansible-playbook main.yml`
+  5. Run the one-time bootstrap playbook: `ansible-playbook bootstrap.yml`
+  6. Run the configuration playbook: `ansible-playbook main.yml`
 
 > **If running locally on the Pi**: You may encounter an error like "Error while fetching server API version" or "connect: permission denied". If you do, please either reboot or log out and log back in, then run the playbook again. If you continue to receive a "permission denied while trying to connect to the Docker daemon socket" error, then you may need to first add your user to the `docker` user group: `sudo usermod -aG docker $USER`, as outlined in the [Docker documentation](https://docs.docker.com/engine/install/linux-postinstall/).
 
