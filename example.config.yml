@@ -91,3 +91,5 @@ homebridge_cameras:
     max_fps: 5
     max_streams: 1
     vcodec: "h264_v4l2m2m"
+homebridge_devices:
+  - "/dev/video11:/dev/video11" # list of devices exposed to the container

@@ -10,6 +10,12 @@ services:
       - NET_ADMIN
       - NET_RAW
       - SYS_ADMIN
+{% if homebridge_devices | default([]) %}
+    devices:
+{% for device in homebridge_devices | default([]) %}
+      - "{{ device }}"
+{% endfor %}
+{% endif %}
     volumes:
       - ./homebridge:/homebridge
     environment:
