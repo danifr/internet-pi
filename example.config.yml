@@ -91,5 +91,9 @@ homebridge_cameras:
     max_fps: 5
     max_streams: 1
     vcodec: "h264_v4l2m2m"
+homebridge_bind_interfaces:
+  - "eth0" # Homebridge HAP/mDNS interface
+homebridge_avahi_allow_interfaces:
+  - "eth0" # Container Avahi/mDNS interface
 homebridge_devices:
   - "/dev/video11:/dev/video11" # list of devices exposed to the container

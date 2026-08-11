@@ -3,7 +3,12 @@
         "name": "Homebridge {{ homebridge_bridge_name }}",
         "username": "{{ homebridge_bridge_mac }}",
         "port": 51580,
-        "pin": "{{ homebridge_pin }}"
+        "pin": "{{ homebridge_pin }}"{% if homebridge_bind_interfaces is not defined or homebridge_bind_interfaces %},
+        "bind": [
+{% for interface in homebridge_bind_interfaces | default(['eth0']) %}
+            "{{ interface }}"{% if not loop.last %},{% endif %}
+{% endfor %}
+        ]{% endif %}
     },
     "platforms": [
         {

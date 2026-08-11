@@ -1,0 +1,20 @@
+[server]
+{% if homebridge_avahi_allow_interfaces is not defined or homebridge_avahi_allow_interfaces %}
+allow-interfaces={{ homebridge_avahi_allow_interfaces | default(['eth0']) | join(',') }}
+{% endif %}
+#host-name=
+use-ipv4=yes
+use-ipv6=no
+enable-dbus=yes
+ratelimit-interval-usec=1000000
+ratelimit-burst=1000
+
+[wide-area]
+enable-wide-area=yes
+
+[rlimits]
+rlimit-core=0
+rlimit-data=4194304
+rlimit-fsize=0
+rlimit-nofile=768
+rlimit-stack=4194304

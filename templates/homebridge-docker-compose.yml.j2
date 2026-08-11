@@ -18,6 +18,7 @@ services:
 {% endif %}
     volumes:
       - ./homebridge:/homebridge
+      - ./avahi-daemon.conf:/defaults/avahi-daemon.conf:ro
     environment:
       - PGID=1000
       - PUID=1000

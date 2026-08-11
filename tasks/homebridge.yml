@@ -31,6 +31,14 @@
     mode: 0755
   become: false
 
+- name: Copy Homebridge Avahi daemon config to Pi.
+  ansible.builtin.template:
+    src: templates/homebridge-avahi-daemon.conf.j2
+    dest: "{{ homebridge_dir.path }}/avahi-daemon.conf"
+    mode: '0644'
+  become: false
+  notify: Restart homebridge
+
 - name: Copy Homebridge config template to Pi.
   ansible.builtin.template:
     src: templates/homebridge-config.json.j2
